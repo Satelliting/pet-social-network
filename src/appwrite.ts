@@ -1,8 +1,11 @@
 import { Client, Account, Databases } from 'appwrite';
 
+const endpoint = import.meta.env.VITE_APPWRITE_API_ENDPOINT;
+const projectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+
 const client = new Client()
-    .setEndpoint(import.meta.env.APPWRITE_API_ENDPOINT)
-    .setProject(import.meta.env.APPWRITE_PROJECT_ID);
+    .setEndpoint(endpoint)
+    .setProject(projectId);
 
 export const account = new Account(client);
 

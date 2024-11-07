@@ -33,8 +33,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       await login(email, password);
 
       await databases.createDocument(
-        import.meta.env.APPWRITE_MAIN_DATABASE_ID,
-        import.meta.env.APPWRITE_USER_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_MAIN_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_USER_COLLECTION_ID,
         ID.unique(),
         {
           userId: user.$id,
@@ -52,11 +52,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(null);
   };
 
+  const resetPasswordRequest = async (email: string) => {
+    try {
+      const baseUrl = window.location.origin;
+      await account.createRecovery(email, `${baseUrl}/reset-password`);
+      return true;
+    } catch (error) {
+      console.error("Error sending recovery email:", error);
+      return false;
+    }
+  };
+
+  const resetPassword = async (
+    userId: string,
+    secret: string,
+    password: string
+  ) => {
+    try {
+      await account.updateRecovery(userId!, secret!, password);
+      return true;
+    } catch (error) {
+      console.error("Error updating password:", error);
+      return false;
+    }
+  };
+
   const value: AuthContextType = {
     user,
     login,
     register,
     logout,
+    resetPasswordRequest,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
