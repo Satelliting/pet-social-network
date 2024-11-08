@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+
+import { useAuth } from "../../../hooks/useAuth";
 
 const ResetPasswordRequest: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -42,7 +43,7 @@ const ResetPasswordRequest: React.FC = () => {
       </form>
       <div className="mt-4 text-center">
         <Link
-          to="/login"
+          to="/auth/login"
           className="text-blue-500 hover:underline text-sm font-medium"
         >
           Remember your password?

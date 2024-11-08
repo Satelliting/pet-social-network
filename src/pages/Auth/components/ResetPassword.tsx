@@ -1,7 +1,7 @@
 // src/components/ResetPassword.tsx
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const ResetPassword: React.FC = () => {
@@ -30,7 +30,7 @@ const ResetPassword: React.FC = () => {
         "Your password has been reset successfully! Redirecting to login."
       );
       setTimeout(() => {
-        navigate("/login");
+        navigate("/auth/login");
       }, 3000);
     } catch (error) {
       console.error("Error resetting password:", error);

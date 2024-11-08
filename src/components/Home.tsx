@@ -16,13 +16,13 @@ const Home: React.FC = () => {
       </p>
       <div className="flex justify-center space-x-4">
         <Link
-          to="/login"
+          to="/auth/login"
           className="bg-white text-blue-600 font-bold py-2 px-4 rounded-md shadow-md hover:bg-gray-100 transition-colors"
         >
           Login
         </Link>
         <Link
-          to="/register"
+          to="/auth/register"
           className="bg-yellow-400 text-gray-800 font-bold py-2 px-4 rounded-md shadow-md hover:bg-yellow-300 transition-colors"
         >
           Register

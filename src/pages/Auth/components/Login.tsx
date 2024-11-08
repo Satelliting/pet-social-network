@@ -1,52 +1,36 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 
-const Register: React.FC = () => {
-  const [name, setName] = useState<string>("");
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const { register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    try {
-      await register(email, password, name);
-      console.log("Registration successful");
+    const loginAttempt = await login(email, password);
+    if (loginAttempt) {
       navigate("/dashboard");
-    } catch (err) {
-      setError("Failed to register. Please try again.");
-      console.error("Registration error:", err);
+    } else {
+      setError("Failed to log in. Please check your credentials.");
     }
+    setLoading(false);
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Register</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Login</h2>
       {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -60,7 +44,8 @@ const Register: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:bg-gray-200"
           />
         </div>
         <div className="mb-6">
@@ -76,26 +61,41 @@ const Register: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:bg-gray-200"
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
+          className={`w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition-colors ${
+            loading ? "bg-blue-300 cursor-not-allowed" : ""
+          }`}
+          disabled={loading}
         >
-          Register
+          {loading ? (
+            <div className="animate-spin border-t-2 border-white w-5 h-5 rounded-full mx-auto" />
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
       <div className="mt-4 text-center">
         <Link
-          to="/login"
+          to="/auth/register"
           className="text-blue-500 hover:underline text-sm font-medium"
         >
-          Already have an account?
+          Need to register?
+        </Link>
+        <br />
+        <Link
+          to="/auth/reset-password-request"
+          className="text-blue-500 hover:underline text-sm font-medium"
+        >
+          Forgot your password?
         </Link>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default Login;

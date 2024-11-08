@@ -8,9 +8,9 @@ interface User {
 
 export interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
+  register: (email: string, password: string, name: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
   resetPasswordRequest: (email: string) => Promise<boolean>;
   resetPassword: (userId: string, secret: string, password: string) => Promise<boolean>;
 }

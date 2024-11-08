@@ -9,14 +9,14 @@ const Dashboard: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/login");
+      navigate("/auth/login");
     } catch (err) {
       console.error("Logout error:", err);
     }
   };
 
   if (!user) {
-    navigate("/login");
+    navigate("/auth/login");
   } else {
     return (
       <div className="max-w-3xl mx-auto p-8 bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-500 text-white rounded-lg shadow-lg">
