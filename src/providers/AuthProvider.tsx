@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   ) => {
     return databases.createDocument(
       import.meta.env.VITE_APPWRITE_MAIN_DATABASE_ID,
-      import.meta.env.VITE_APPWRITE_USER_COLLECTION_ID,
+      import.meta.env.VITE_APPWRITE_USERS_COLLECTION_ID,
       ID.unique(),
       {
         userId,

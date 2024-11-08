@@ -25,7 +25,7 @@ export const ActivePetProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_MAIN_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_USER_PETS_COLLECTION_ID,
+        import.meta.env.VITE_APPWRITE_USERS_PETS_COLLECTION_ID,
         [Query.equal("userId", user!.$id), Query.equal("active", true)]
       );
       if (response.documents.length > 0) {
@@ -37,22 +37,41 @@ export const ActivePetProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const setActivePetById = async (petId: string) => {
+    try {
+      const userPets = await databases.listDocuments(
+        import.meta.env.VITE_APPWRITE_MAIN_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_USERS_PETS_COLLECTION_ID,
+        [Query.equal("userId", user!.$id)]
+      );
+
+      const updatePromises = userPets.documents.map((pet) =>
+        databases.updateDocument(
+          import.meta.env.VITE_APPWRITE_MAIN_DATABASE_ID,
+          import.meta.env.VITE_APPWRITE_USERS_PETS_COLLECTION_ID,
+          pet.$id,
+          { active: pet.$id === petId }
+        )
+      );
+
+      // Await all updates to complete
+      await Promise.all(updatePromises);
+
+      // Refresh the active pet in context
+      fetchActivePet();
+    } catch (error) {
+      console.error("Failed to set active pet:", error);
+    }
+  };
+
   const value: ActivePetContextType = {
-    pet: activePet,
+    activePet: activePet,
     fetchActivePet,
+    setActivePetById,
   };
 
   return (
     <ActivePetContext.Provider value={value}>
-      {activePet && (
-        <div>
-          <h2>Active Pet Details</h2>
-          <p>Name: {activePet.name}</p>
-          <p>
-            Health: {activePet.currentHealth}/{activePet.health}
-          </p>
-        </div>
-      )}
       {children}
     </ActivePetContext.Provider>
   );

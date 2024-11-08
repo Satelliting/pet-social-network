@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const Layout: React.FC = () => {
-  const title = "Pet Social Network";
+  const title = "Midjits";
   const { user, logout } = useAuth();
 
   return (

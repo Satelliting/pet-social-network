@@ -8,13 +8,15 @@ import {
 import { AuthProvider } from "./providers/AuthProvider";
 import { ActivePetProvider } from "./providers/ActivePetProvider";
 import Layout from "./components/Layout";
-import AuthPage from "./pages/Auth/AuthPage";
-import Login from "./pages/Auth/components/Login";
-import Register from "./pages/Auth/components/Register";
-import Home from "./components/Home";
-import ResetPasswordRequest from "./pages/Auth/components/ResetPasswordRequest";
-import ResetPassword from "./pages/Auth/components/ResetPassword";
-import Dashboard from "./components/Dashboard";
+
+import { HomePage, AuthPage, CreatePetPage, DashboardPage } from "./pages";
+
+import {
+  Login,
+  Register,
+  ResetPasswordRequest,
+  ResetPassword,
+} from "./pages/Auth/components";
 
 const App: React.FC = () => {
   return (
@@ -24,7 +26,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Layout />}>
               {/* Main */}
-              <Route index element={<Home />} />
+              <Route index element={<HomePage />} />
               {/* Auth */}
               {/* This will get removed once we setup the custom domain stuff */}
               <Route
@@ -41,7 +43,8 @@ const App: React.FC = () => {
                 <Route path="reset-password" element={<ResetPassword />} />
               </Route>
               {/* Misc */}
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="create-pet" element={<CreatePetPage />} />
+              <Route path="dashboard" element={<DashboardPage />} />
             </Route>
           </Routes>
         </Router>

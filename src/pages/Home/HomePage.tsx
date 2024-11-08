@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-const Home: React.FC = () => {
-  const title = "Pet Social Network";
+const HomePage: React.FC = () => {
+  const title = "Midjits";
   return (
     <div className="max-w-lg mx-auto p-8 bg-gradient-to-br from-teal-400 via-blue-500 to-purple-600 text-white rounded-lg shadow-lg text-center">
       <h2 className="text-3xl font-extrabold mb-4">
@@ -32,4 +32,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;

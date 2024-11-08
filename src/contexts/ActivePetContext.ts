@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export interface ActivePet {
   $id: string;
@@ -12,8 +12,11 @@ export interface ActivePet {
 }
 
 export interface ActivePetContextType {
-  pet: ActivePet | null;
+  activePet: ActivePet | null;
   fetchActivePet: () => Promise<void>;
+  setActivePetById: (petId: string) => Promise<void>;
 }
 
-export const ActivePetContext = createContext<ActivePetContextType | null>(null);
+export const ActivePetContext = createContext<ActivePetContextType | null>(
+  null
+);
