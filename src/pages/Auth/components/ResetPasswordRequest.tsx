@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 
 const ResetPasswordRequest: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -23,7 +23,9 @@ const ResetPasswordRequest: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Reset Password</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+        Request Reset Password
+      </h2>
       {message && <p className="text-red-500 text-sm mb-4">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

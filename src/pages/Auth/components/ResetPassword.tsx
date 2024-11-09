@@ -1,8 +1,8 @@
 // src/components/ResetPassword.tsx
-import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+import { useAuth } from "../../../hooks";
 
 const ResetPassword: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -16,9 +16,11 @@ const ResetPassword: React.FC = () => {
   const userId = searchParams.get("userId");
   const secret = searchParams.get("secret");
 
-  if (!userId || !secret) {
-    navigate("/reset-password-request");
-  }
+  useEffect(() => {
+    if (!userId || !secret) {
+      navigate("/auth/reset-password-request");
+    }
+  }, [userId, secret, navigate]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

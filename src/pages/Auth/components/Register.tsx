@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 
 const Register: React.FC = () => {
   const [name, setName] = useState<string>("");

@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Query, Storage } from "appwrite";
 
 import { client, databases } from "../../appwrite";
-import { useAuth } from "../../hooks/useAuth";
-import { useActivePet } from "../../hooks/useActivePet";
-import { PetInterface } from "../../interfaces/Pets";
+import { PetInterface } from "../../interfaces";
+import { useActivePet, useAuth } from "../../hooks";
 
 const storage = new Storage(client);
 
@@ -16,7 +15,7 @@ const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
 
   if (!user) {
-    navigate("/auth/login");
+    navigate("/");
   }
 
   useEffect(() => {

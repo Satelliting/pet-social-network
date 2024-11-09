@@ -5,17 +5,16 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import { AuthProvider } from "./providers/AuthProvider";
-import { ActivePetProvider } from "./providers/ActivePetProvider";
-import Layout from "./components/Layout";
-
+import { Layout } from "./components";
 import { HomePage, AuthPage, CreatePetPage, DashboardPage } from "./pages";
+import { ActivePetProvider, AuthProvider } from "./providers";
 
 import {
   Login,
   Register,
   ResetPasswordRequest,
   ResetPassword,
+  Logout,
 } from "./pages/Auth/components";
 
 const App: React.FC = () => {
@@ -41,6 +40,7 @@ const App: React.FC = () => {
                   element={<ResetPasswordRequest />}
                 />
                 <Route path="reset-password" element={<ResetPassword />} />
+                <Route path="logout" element={<Logout />} />
               </Route>
               {/* Misc */}
               <Route path="create-pet" element={<CreatePetPage />} />

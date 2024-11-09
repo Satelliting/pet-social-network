@@ -2,11 +2,9 @@ import { useState, useEffect, ReactNode } from "react";
 import { ID } from "appwrite";
 
 import { account, databases } from "../appwrite";
-import { AuthContext, AuthContextType } from "../contexts/AuthContext";
+import { AuthContext, AuthContextType } from "../contexts";
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthContextType["user"]>(null);
 
   useEffect(() => {
@@ -109,3 +107,5 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+export default AuthProvider;

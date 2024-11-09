@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-primary: #5dbf57; /* Green */
+  --color-accent-yellow: #fdd747; /* Yellow */
+  --color-accent-orange: #f89e44; /* Orange */
+  --color-accent-red: #f76c5e; /* Red */
+  --color-accent-blue: #67c4dd; /* Blue */
+  --color-background-light: #f5f5f5;
+  --color-text-dark: #333333;
+}

@@ -2,14 +2,10 @@ import { useState, useEffect } from "react";
 import { Query } from "appwrite";
 
 import { databases } from "../appwrite";
-import {
-  ActivePet,
-  ActivePetContext,
-  ActivePetContextType,
-} from "../contexts/ActivePetContext";
-import { useAuth } from "../hooks/useAuth";
+import { ActivePet, ActivePetContext, ActivePetContextType } from "../contexts";
+import { useAuth } from "../hooks";
 
-export const ActivePetProvider: React.FC<{ children: React.ReactNode }> = ({
+const ActivePetProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [activePet, setActivePet] = useState<ActivePet | null>(null);
@@ -76,3 +72,5 @@ export const ActivePetProvider: React.FC<{ children: React.ReactNode }> = ({
     </ActivePetContext.Provider>
   );
 };
+
+export default ActivePetProvider;
